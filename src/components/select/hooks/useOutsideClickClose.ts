@@ -16,8 +16,14 @@ export const useOutsideClickClose = ({
 	useEffect(() => {
 		const handleClick = (event: MouseEvent) => {
 			const { target } = event;
-			if (target instanceof Node && !rootRef.current?.contains(target)) {
-				isOpen && onClose?.();
+
+			if (
+				target instanceof HTMLElement &&
+				!rootRef.current?.contains(target) &&
+				!target.closest('li')
+			) {
+				//Здравствуйте! Объясните, пожалуйста, как в этом проекте должна была выглядеть эта логика. Я выполнил задание, но полагаю, что можно сделать лучше.
+				isOpen && onClose?.(); //Честно говоря, я уже 3 день пытаюсь что-то сделать, но это единственно что пришло на ум -_-
 				onChange?.(false);
 			}
 		};

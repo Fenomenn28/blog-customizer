@@ -2,6 +2,7 @@ import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
 import { Text } from '../text';
 import styles from './ArticleParamsForm.module.scss';
+import clsx from 'clsx';
 
 import { FormEvent, useRef, useState } from 'react';
 import { Select } from '../select';
@@ -27,14 +28,12 @@ export const ArticleParamsForm = ({
 }: ArticleParamsFormProps) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [formState, setFormState] = useState(defaultArticleState);
-
 	const rootRef = useRef<HTMLElement | null>(null);
 
 	useOutsideClickClose({
 		isOpen,
 		rootRef,
 		onChange: setIsOpen,
-		onClose: () => setIsOpen(false),
 	});
 
 	const formSubmit = (evt: FormEvent) => {
@@ -53,7 +52,7 @@ export const ArticleParamsForm = ({
 			<ArrowButton setIsOpen={setIsOpen} isOpen={isOpen} />
 			<aside
 				ref={rootRef}
-				className={`${styles.container} ${isOpen && styles.container_open}`}>
+				className={clsx(styles.container, isOpen && styles.container_open)}>
 				<form className={styles.form} onSubmit={formSubmit} onReset={formReset}>
 					<Text as={'h2'} size={31} weight={800} uppercase={true}>
 						Задайте параметры
