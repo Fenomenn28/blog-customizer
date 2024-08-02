@@ -17,21 +17,16 @@ export const useOutsideClickClose = ({
 		const handleClick = (event: MouseEvent) => {
 			const { target } = event;
 
-			if (
-				target instanceof HTMLElement &&
-				!rootRef.current?.contains(target) &&
-				!target.closest('li')
-			) {
-				//Здравствуйте! Объясните, пожалуйста, как в этом проекте должна была выглядеть эта логика. Я выполнил задание, но полагаю, что можно сделать лучше.
-				isOpen && onClose?.(); //Честно говоря, я уже 3 день пытаюсь что-то сделать, но это единственно что пришло на ум -_-
+			if (target instanceof HTMLElement && !rootRef.current?.contains(target)) {
+				isOpen && onClose?.();
 				onChange?.(false);
 			}
 		};
 
-		window.addEventListener('click', handleClick);
+		window.addEventListener('mousedown', handleClick);
 
 		return () => {
-			window.removeEventListener('click', handleClick);
+			window.removeEventListener('mousedown', handleClick);
 		};
 	}, [onClose, onChange, isOpen]);
 };
